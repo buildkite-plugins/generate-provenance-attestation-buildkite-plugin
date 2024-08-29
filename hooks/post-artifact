@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+# `set -x` if DEBUG_PUBLISH_TO_PACKAGES environment variable is set 
+# to anything at all. e.g. DEBUG_PUBLISH_TO_PACKAGES=1
+# Do this before `set -u` to avoid unbound variable error.
+if [[ -n "${DEBUG_GENERATE_BUILD_PROVENANCE}" ]]; then
+  set -x # Print all executed commands to the terminal for debugging
+fi
+
+set -e            # Immediately exit if any command has a non-zero exit status
+set -u            # Immediately exit if a reference is made to an unbound variable
+set -o pipefail   # Pipeline ("|") uses exit status of the first failed command
+
+SCRIPT_DIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
+
+# shellcheck source=lib/plugin.bash
+. "$SCRIPT_DIR/../lib/plugin.bash"
+
+ARTIFACTS="$(plugin_read_config ARTIFACTS "")"
+PROVENANCE_FILENAME="$(plugin_read_config PROVENANCE_FILENAME "")"
+
+echo "~~~ 🔏 Preparing to Generate Build Provenance"
+
+TMP_DIR=$(mktemp -d)
+ARTIFACTS_DIR="${TMP_DIR}/artifacts"
+PROVENANCE_DIR="${TMP_DIR}/provenance"
+PROVENANCE_FILE="${PROVENANCE_DIR}/${PROVENANCE_FILENAME}"
+
+mkdir -p "${ARTIFACTS_DIR}" "${PROVENANCE_DIR}"
+
+echo "~~~ 🔏 Download Artifacts"
+
+buildkite-agent artifact download "${ARTIFACTS}" "${ARTIFACTS_DIR}" --step "$BUILDKITE_JOB_ID"
+
+echo "~~~ 🔏 Generate Build Provenance"
+
+python3 "${SCRIPT_DIR}/../main.py" \
+  --artifact-directory "${ARTIFACTS_DIR}" \
+  --output "${PROVENANCE_FILE}"
+
+echo "~~~ 🔏 Upload Build Provenance"
+
+cd "${PROVENANCE_DIR}"
+buildkite-agent artifact upload "*"
+
+echo "--- 🔏 Preview Build Provenance"
+
+cat "${PROVENANCE_FILE}" | jq
+
+echo "~~~ 🔏 Clean up Build Provenance"
+rm -rf ${TMP_DIR}
