@@ -1,4 +1,5 @@
 import argparse
+import typing
 
 
 class CliArguments:
@@ -10,7 +11,7 @@ class CliArguments:
         )
         parser.add_argument("-d", "--artifact-directory", default="")
         parser.add_argument("-g", "--artifact-glob", default="*")
-        parser.add_argument("-o", "--output", default="provenance.json")
+        parser.add_argument("-o", "--output", default=None)
         self.arguments = parser.parse_args()
 
     def get_artifact_directory(self) -> str:
@@ -19,5 +20,8 @@ class CliArguments:
     def get_artifact_glob(self) -> str:
         return str(self.arguments.artifact_glob)
 
-    def get_output_file(self) -> str:
-        return str(self.arguments.output)
+    def get_output_file(self) -> typing.Union[str, None]:
+        if self.arguments.output:
+            return str(self.arguments.output)
+        else:
+            return None

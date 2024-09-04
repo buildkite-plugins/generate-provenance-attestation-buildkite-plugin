@@ -25,9 +25,11 @@ generator = ProvenanceGenerator(
 
 provenance = generator.provenance()
 
-if arguments.get_output_file():
-    with open(arguments.get_output_file(), "w", encoding="utf-8") as f:
-        json.dump(provenance, f, indent=4)
+output_file = arguments.get_output_file()
+
+if isinstance(output_file, str):
+    with open(output_file, "w", encoding="utf-8") as f:
+        json.dump(provenance, f, indent=2)
     print("Build Provenance written to: {}".format(arguments.get_output_file()))
 else:
-    print(json.dumps(provenance, indent=4))
+    print(json.dumps(provenance, indent=2))

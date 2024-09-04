@@ -1,0 +1,58 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "logger-1.6.0.gem",
+      "digest": {
+        "sha256": "0ab7c120262dd8de2a18cb8d377f1f318cbe98535160a508af9e7710ff43ef3e"
+      }
+    }
+  ],
+  "predicateType": "https://slsa.dev/provenance/v1",
+  "predicate": {
+    "buildDefinition": {
+      "buildType": "https://buildkite.github.io/slsa-buildtypes/job/v1",
+      "externalParameters": {
+        "pipeline": "https://buildkite.com/acme-corp/awesome-logger",
+        "repository": "https://github.com/acme-corp/awesome-logger.git",
+        "build": {
+          "branch": "main",
+          "commit": "2b4ba8fe79386d40ce27dc5f6cc4161a0f598cc2",
+          "tag": "v1.6.0"
+        },
+        "step": {
+          "id": "01919c03-1f78-4951-bf28-6b0e293ab2bd",
+          "command": "gem build awesome-logger.gemspec",
+          "key": "build-gem"
+        },
+        "job": {
+          "id": "01919c03-1f99-4e5e-a0f8-75f7571c8fbc"
+        }
+      },
+      "internalParameters": {
+        "buildkite": {
+          "organization_id": "019033f0-0b83-41d7-a327-def5f678906c",
+          "pipeline_id": "01919c01-132f-46f1-803f-2efc0c444af7",
+          "build_id": "01919c03-1f85-4b3f-9594-2986d23b14c4",
+          "build_number": "49387"
+        }
+      },
+      "resolvedDependencies": [
+        {
+          "uri": "git+https://github.com/acme-corp/awesome-logger@refs/heads/main",
+          "digest": {
+            "gitCommit": "2b4ba8fe79386d40ce27dc5f6cc4161a0f598cc2"
+          }
+        }
+      ]
+    },
+    "runDetails": {
+      "builder": {
+        "id": "https://github.com/buildkite-plugins/generate-build-provenance-buildkite-plugin@refs/heads/main"
+      },
+      "metadata": {
+        "invocationId": "https://buildkite.com/acme-corp/awesome-logger/builds/49387#01919c03-1f99-4e5e-a0f8-75f7571c8fbc"
+      }
+    }
+  }
+}

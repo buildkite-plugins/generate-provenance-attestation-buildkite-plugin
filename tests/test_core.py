@@ -72,13 +72,13 @@ class ProvenanceGeneratorTests(unittest.TestCase):
         )
         self.assertEqual(result["externalParameters"]["pipeline"], pg.pipeline())
         self.assertEqual(
+            result["externalParameters"]["repository"], env["BUILDKITE_REPO"]
+        )
+        self.assertEqual(
             result["externalParameters"]["build"],
             {
-                "id": env["BUILDKITE_BUILD_ID"],
                 "branch": env["BUILDKITE_BRANCH"],
                 "commit": env["BUILDKITE_COMMIT"],
-                "number": env["BUILDKITE_BUILD_NUMBER"],
-                "repository": env["BUILDKITE_REPO"],
                 "tag": env["BUILDKITE_TAG"],
             },
         )
@@ -98,6 +98,8 @@ class ProvenanceGeneratorTests(unittest.TestCase):
             {
                 "organization_id": env["BUILDKITE_ORGANIZATION_ID"],
                 "pipeline_id": env["BUILDKITE_PIPELINE_ID"],
+                "build_id": env["BUILDKITE_BUILD_ID"],
+                "build_number": env["BUILDKITE_BUILD_NUMBER"],
             },
         )
         self.assertEqual(
@@ -135,7 +137,9 @@ class ProvenanceGeneratorTests(unittest.TestCase):
         pg = ProvenanceGenerator(environment=self.generate_base_env())
 
         expectation = {
-            "builder": {"id": "https://agent.buildkite.com"},
+            "builder": {
+                "id": "https://github.com/buildkite-plugins/generate-build-provenance-buildkite-plugin@refs/heads/main"
+            },
             "metadata": {"invocationId": pg.invocation_id()},
         }
         self.assertEqual(pg.run_details(), expectation)

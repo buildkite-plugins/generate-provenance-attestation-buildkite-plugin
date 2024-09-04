@@ -1,0 +1,15 @@
+name: Generate Build Provenance
+description: Generates a build provenance document that satisfied SLSA Build Level 1
+author: https://github.com/buildkite-plugins
+requirements:
+  - python
+configuration:
+  properties:
+    artifacts:
+      type: string
+    provenance_file:
+      type: string
+  required:
+    - artifacts
+    - provenance_file
+  additionalProperties: false

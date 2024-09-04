@@ -43,12 +43,10 @@ class ProvenanceGenerator:
             "buildType": "https://buildkite.github.io/slsa-buildtypes/job/v1",
             "externalParameters": {
                 "pipeline": self.pipeline(),
+                "repository": self._env("BUILDKITE_REPO"),
                 "build": {
-                    "id": self._env("BUILDKITE_BUILD_ID"),
                     "branch": self._env("BUILDKITE_BRANCH"),
                     "commit": self._env("BUILDKITE_COMMIT"),
-                    "number": self._env("BUILDKITE_BUILD_NUMBER"),
-                    "repository": self._env("BUILDKITE_REPO"),
                     "tag": self._env("BUILDKITE_TAG"),
                 },
                 "step": {
@@ -62,6 +60,8 @@ class ProvenanceGenerator:
                 "buildkite": {
                     "organization_id": self._env("BUILDKITE_ORGANIZATION_ID"),
                     "pipeline_id": self._env("BUILDKITE_PIPELINE_ID"),
+                    "build_id": self._env("BUILDKITE_BUILD_ID"),
+                    "build_number": self._env("BUILDKITE_BUILD_NUMBER"),
                 }
             },
             "resolvedDependencies": [
@@ -87,7 +87,9 @@ class ProvenanceGenerator:
 
     def run_details(self) -> Dict[str, Any]:
         return {
-            "builder": {"id": "https://agent.buildkite.com"},
+            "builder": {
+                "id": "https://github.com/buildkite-plugins/generate-build-provenance-buildkite-plugin@refs/heads/main"
+            },
             "metadata": {
                 "invocationId": self.invocation_id(),
             },
