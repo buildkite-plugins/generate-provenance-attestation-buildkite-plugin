@@ -1,20 +1,9 @@
-import hashlib
-import pathlib
 import uuid
-from typing import Dict
+from pathlib import Path
+from typing import Dict, List, Mapping
 
-
-def compute_hash(file_path: pathlib.Path) -> str:
-    sha256 = hashlib.sha256()
-    with open(file_path, "rb") as f:
-        # Read the file in 4096-byte chunks
-        while True:
-            data = f.read(4096)
-            if not data:
-                break
-            # Update the hash object with the data
-            sha256.update(data)
-    return sha256.hexdigest()
+from provenance_generator.api_client import ApiClient
+from provenance_generator.path_sha import PathSha
 
 
 def fake_env() -> Dict[str, str]:
@@ -36,5 +25,37 @@ def fake_env() -> Dict[str, str]:
     }
 
 
+def fake_files() -> List[PathSha]:
+    return [
+        dict(path="file_1.ext", sha256sum="fake_sha_1"),
+        dict(path="file_2.ext", sha256sum="fake_sha_2"),
+    ]
+
+
 def generate_uuid() -> str:
     return str(uuid.uuid4())
+
+
+def get_files_and_shas(
+    query: str, build_id: str, job_id: str, access_token: str
+) -> List[PathSha]:
+    client = ApiClient(access_token)
+    artifacts = client.get_artifacts_list(query, build_id, job_id)
+    return list(
+        map(
+            artifact_to_path_sha,
+            artifacts,
+        )
+    )
+
+
+def strip_dirs(path: str) -> str:
+    p = Path(path)
+    return p.name
+
+
+def artifact_to_path_sha(artifact: Mapping[str, str]) -> PathSha:
+    return dict(
+        path=strip_dirs(str(artifact["path"])),
+        sha256sum=str(artifact["sha256sum"]),
+    )

@@ -1,25 +1,26 @@
 import json
 import os
-from pathlib import Path
 
 from provenance_generator.cli_arguments import CliArguments
 from provenance_generator.core import ProvenanceGenerator
-from provenance_generator.helpers import compute_hash, fake_env
+from provenance_generator.helpers import fake_env, fake_files, get_files_and_shas
 
 arguments = CliArguments()
-files = [
-    file
-    for file in Path(arguments.get_artifact_directory()).glob(
-        arguments.get_artifact_glob()
-    )
-    if file.is_file()
-]
 
-environment = os.environ if os.environ.get("FAKE_ENV") != "1" else fake_env()
+environment = fake_env() if os.environ.get("FAKE_ENV") == "1" else os.environ
+files = (
+    fake_files()
+    if os.environ.get("FAKE_ENV") == "1"
+    else get_files_and_shas(
+        query=arguments.get_artifact_glob(),
+        build_id=str(environment.get("BUILDKITE_BUILD_ID")),
+        job_id=str(environment.get("BUILDKITE_JOB_ID")),
+        access_token=str(environment.get("BUILDKITE_AGENT_ACCESS_TOKEN")),
+    )
+)
 
 generator = ProvenanceGenerator(
     environment=environment,
-    compute_hash_fn=compute_hash,
     files=files,
 )
 

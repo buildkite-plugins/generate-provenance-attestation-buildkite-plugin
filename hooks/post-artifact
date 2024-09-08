@@ -22,20 +22,14 @@ PROVENANCE_FILENAME="$(plugin_read_config PROVENANCE_FILENAME "")"
 echo "~~~ 🔏 Preparing to Generate Build Provenance"
 
 TMP_DIR=$(mktemp -d)
-ARTIFACTS_DIR="${TMP_DIR}/artifacts"
 PROVENANCE_DIR="${TMP_DIR}/provenance"
 PROVENANCE_FILE="${PROVENANCE_DIR}/${PROVENANCE_FILENAME}"
 
-mkdir -p "${ARTIFACTS_DIR}" "${PROVENANCE_DIR}"
-
-echo "~~~ 🔏 Download Artifacts"
-
-buildkite-agent artifact download "${ARTIFACTS}" "${ARTIFACTS_DIR}" --step "$BUILDKITE_JOB_ID"
+mkdir -p "${PROVENANCE_DIR}"
 
 echo "~~~ 🔏 Generate Build Provenance"
 
 python3 "${SCRIPT_DIR}/../main.py" \
-  --artifact-directory "${ARTIFACTS_DIR}" \
   --output "${PROVENANCE_FILE}"
 
 echo "~~~ 🔏 Upload Build Provenance"

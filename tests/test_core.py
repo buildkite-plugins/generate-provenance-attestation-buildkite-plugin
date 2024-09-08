@@ -11,14 +11,7 @@ from provenance_generator.helpers import fake_env
 
 class ProvenanceGeneratorTests(unittest.TestCase):
     def test_provenance_0(self) -> None:
-        pg = ProvenanceGenerator(
-            environment=self.generate_base_env(),
-            compute_hash_fn=self.fake_compute_hash,
-            files=[
-                self.generate_mock_file("file_1.ext"),
-                self.generate_mock_file("file_2.ext"),
-            ],
-        )
+        pg = ProvenanceGenerator(environment=self.generate_base_env(), files=[])
 
         result = pg.provenance()
         expectation = {
@@ -34,33 +27,22 @@ class ProvenanceGeneratorTests(unittest.TestCase):
 
     def test_subject_0(self) -> None:
         pg = ProvenanceGenerator(
-            compute_hash_fn=self.fake_compute_hash,
             files=[
-                self.generate_mock_file("file_1.ext"),
-                self.generate_mock_file("file_2.ext"),
-            ],
+                {"path": "file_1.ext", "sha256sum": "fake_hash_1"},
+                {"path": "file_2.ext", "sha256sum": "fake_hash_2"},
+            ]
         )
         expectation = [
             {
                 "name": "file_1.ext",
-                "digest": {"sha256": "fake_hash:/absolute/file_1.ext"},
+                "digest": {"sha256": "fake_hash_1"},
             },
             {
                 "name": "file_2.ext",
-                "digest": {"sha256": "fake_hash:/absolute/file_2.ext"},
+                "digest": {"sha256": "fake_hash_2"},
             },
         ]
         self.assertEqual(pg.subject(), expectation)
-
-    def test_subject_entry_0(self) -> None:
-        pg = ProvenanceGenerator(compute_hash_fn=self.fake_compute_hash)
-
-        result = pg.subject_entry(self.generate_mock_file("name.ext"))
-        expectation = {
-            "name": "name.ext",
-            "digest": {"sha256": "fake_hash:/absolute/name.ext"},
-        }
-        self.assertEqual(result, expectation)
 
     def test_build_definition_0(self) -> None:
         env = self.generate_base_env()

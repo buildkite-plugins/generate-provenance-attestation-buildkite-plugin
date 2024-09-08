@@ -1,18 +1,17 @@
-import pathlib
 import re
 import urllib.parse
 from typing import Any, Callable, Dict, List, Mapping
+
+from provenance_generator.path_sha import PathSha
 
 
 class ProvenanceGenerator:
     def __init__(
         self,
         environment: Mapping[str, str] = {},
-        files: List[pathlib.Path] = [],
-        compute_hash_fn: Callable[[pathlib.Path], str] = lambda x: str(x),
+        files: List[PathSha] = [],
     ):
         self.environment = dict(environment.items())
-        self.compute_hash = compute_hash_fn
         self.files = files
 
     def _env(self, key: str) -> str:
@@ -30,13 +29,12 @@ class ProvenanceGenerator:
         }
 
     def subject(self) -> List[Dict[str, Any]]:
-        return list(map(self.subject_entry, self.files))
-
-    def subject_entry(self, file: pathlib.Path) -> Dict[str, Any]:
-        return {
-            "name": file.name,
-            "digest": {"sha256": self.compute_hash(file.absolute())},
+        fn: Callable[[PathSha], Dict[str, Any]] = lambda path_sha: {
+            "name": path_sha["path"],
+            "digest": {"sha256": path_sha["sha256sum"]},
         }
+
+        return list(map(fn, self.files))
 
     def build_definition(self) -> Dict[str, Any]:
         return {

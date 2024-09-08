@@ -44,17 +44,15 @@ The core of the plugin is a [Python](https://www.python.org) program [main.py](.
 
 It accepts the following arguments:
 
-| Argument                 | Description                                                            |
-| ------------------------ | ---------------------------------------------------------------------- |
-| -d, --artifact-directory | (required) Directory to download artifacts to.                         |
-| -g, --artifact-glob      | Only include artifacts from --artifact-directory that match this glob. |
-| -o, --output             | Write provenance document to a file instead of STDOUT                  |
+| Argument            | Description                                           |
+| ------------------- | ----------------------------------------------------- |
+| -g, --artifact-glob | Only include artifacts that match this glob.          |
+| -o, --output        | Write provenance document to a file instead of STDOUT |
 
 #### Example
 
 ```shell
 python3 ./main.py \
-  --artifact-directory "./artifacts" \
   --artifact-glob "*.gem" \
   --output "./gem-provenance.json"
 ```
@@ -63,10 +61,10 @@ python3 ./main.py \
 
 #### Running with fake environment variables
 
-If `FAKE_ENV` environment variable is set to `1`, the program will use a set of fake `BUILDKITE_*` environment variables defined in [provenance_generator/helpers.py](./provenance_generator/helpers.py).
+If `FAKE_ENV` environment variable is set to `1`, the program will use a set of fake `BUILDKITE_*` environment variables and fake artifact files defined in [provenance_generator/helpers.py](./provenance_generator/helpers.py).
 
 ```shell
-FAKE_ENV=1 python3 ./main.py -d "./artifacts"
+FAKE_ENV=1 python3 ./main.py
 ```
 
 #### Check type annotations with mypy
