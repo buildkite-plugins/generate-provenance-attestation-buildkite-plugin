@@ -30,6 +30,7 @@ mkdir -p "${PROVENANCE_DIR}"
 echo "~~~ 🔏 Generate Build Provenance"
 
 python3 "${SCRIPT_DIR}/../main.py" \
+  --artifacts-glob "${ARTIFACTS}" \
   --output "${PROVENANCE_FILE}"
 
 echo "~~~ 🔏 Upload Build Provenance"

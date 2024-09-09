@@ -40,13 +40,19 @@ def get_files_and_shas(
     query: str, build_id: str, job_id: str, access_token: str
 ) -> List[PathSha]:
     client = ApiClient(access_token)
-    artifacts = client.get_artifacts_list(query, build_id, job_id)
-    return list(
-        map(
-            artifact_to_path_sha,
-            artifacts,
+
+    subqueries = map(lambda s: s.strip(), query.split(";"))
+
+    result = []
+    for subquery in subqueries:
+        artifacts = client.get_artifacts_list(subquery, build_id, job_id)
+        result += list(
+            map(
+                artifact_to_path_sha,
+                artifacts,
+            )
         )
-    )
+    return result
 
 
 def strip_dirs(path: str) -> str:

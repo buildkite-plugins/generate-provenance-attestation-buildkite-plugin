@@ -9,12 +9,12 @@ class CliArguments:
             description="Generates build provenance",
             epilog="Have a nice day!",
         )
-        parser.add_argument("-g", "--artifact-glob", default="*")
+        parser.add_argument("-g", "--artifacts-glob", default="*")
         parser.add_argument("-o", "--output", default=None)
         self.arguments = parser.parse_args()
 
-    def get_artifact_glob(self) -> str:
-        return str(self.arguments.artifact_glob)
+    def get_artifacts_glob(self) -> str:
+        return str(self.arguments.artifacts_glob)
 
     def get_output_file(self) -> typing.Union[str, None]:
         if self.arguments.output:

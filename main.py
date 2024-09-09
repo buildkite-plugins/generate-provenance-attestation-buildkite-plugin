@@ -12,7 +12,7 @@ files = (
     fake_files()
     if os.environ.get("FAKE_ENV") == "1"
     else get_files_and_shas(
-        query=arguments.get_artifact_glob(),
+        query=arguments.get_artifacts_glob(),
         build_id=str(environment.get("BUILDKITE_BUILD_ID")),
         job_id=str(environment.get("BUILDKITE_JOB_ID")),
         access_token=str(environment.get("BUILDKITE_AGENT_ACCESS_TOKEN")),

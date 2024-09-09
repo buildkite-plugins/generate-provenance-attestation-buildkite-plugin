@@ -44,16 +44,16 @@ The core of the plugin is a [Python](https://www.python.org) program [main.py](.
 
 It accepts the following arguments:
 
-| Argument            | Description                                           |
-| ------------------- | ----------------------------------------------------- |
-| -g, --artifact-glob | Only include artifacts that match this glob.          |
-| -o, --output        | Write provenance document to a file instead of STDOUT |
+| Argument             | Description                                           |
+| -------------------- | ----------------------------------------------------- |
+| -g, --artifacts-glob | Only include artifacts that match this glob.          |
+| -o, --output         | Write provenance document to a file instead of STDOUT |
 
 #### Example
 
 ```shell
 python3 ./main.py \
-  --artifact-glob "*.gem" \
+  --artifacts-glob "*.gem" \
   --output "./gem-provenance.json"
 ```
 
