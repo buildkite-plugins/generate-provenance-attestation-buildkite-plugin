@@ -10,9 +10,11 @@ class ProvenanceGenerator:
         self,
         environment: Mapping[str, str] = {},
         files: List[PathSha] = [],
+        plugin_version: str = "",
     ):
         self.environment = dict(environment.items())
         self.files = files
+        self.plugin_version = plugin_version
 
     def _env(self, key: str) -> str:
         return self.environment[key]
@@ -83,11 +85,14 @@ class ProvenanceGenerator:
             result.netloc, path, self._env("BUILDKITE_BRANCH")
         )
 
+    def builder_id(self) -> str:
+        return "https://github.com/buildkite-plugins/generate-build-provenance-buildkite-plugin@refs/tags/{}".format(
+            self.plugin_version
+        )
+
     def run_details(self) -> Dict[str, Any]:
         return {
-            "builder": {
-                "id": "https://github.com/buildkite-plugins/generate-build-provenance-buildkite-plugin@refs/heads/main"
-            },
+            "builder": {"id": self.builder_id()},
             "metadata": {
                 "invocationId": self.invocation_id(),
             },

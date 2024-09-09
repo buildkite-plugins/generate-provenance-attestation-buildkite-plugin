@@ -11,6 +11,7 @@ class CliArguments:
         )
         parser.add_argument("-g", "--artifacts-glob", default="*")
         parser.add_argument("-o", "--output", default=None)
+        parser.add_argument("-p", "--plugin-version", default="development")
         self.arguments = parser.parse_args()
 
     def get_artifacts_glob(self) -> str:
@@ -21,3 +22,6 @@ class CliArguments:
             return str(self.arguments.output)
         else:
             return None
+
+    def get_plugin_version(self) -> str:
+        return str(self.arguments.plugin_version)

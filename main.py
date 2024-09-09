@@ -20,8 +20,7 @@ files = (
 )
 
 generator = ProvenanceGenerator(
-    environment=environment,
-    files=files,
+    environment=environment, files=files, plugin_version=arguments.get_plugin_version()
 )
 
 provenance = generator.provenance()

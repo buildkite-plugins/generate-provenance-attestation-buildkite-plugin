@@ -115,13 +115,19 @@ class ProvenanceGeneratorTests(unittest.TestCase):
             "git+https://github.com/buildkite/demokite@refs/heads/a_branch",
         )
 
+    def test_builder_id_0(self) -> None:
+        pg = ProvenanceGenerator(plugin_version="v193.402.221")
+
+        self.assertEqual(
+            pg.builder_id(),
+            "https://github.com/buildkite-plugins/generate-build-provenance-buildkite-plugin@refs/tags/v193.402.221",
+        )
+
     def test_run_details_0(self) -> None:
         pg = ProvenanceGenerator(environment=self.generate_base_env())
 
         expectation = {
-            "builder": {
-                "id": "https://github.com/buildkite-plugins/generate-build-provenance-buildkite-plugin@refs/heads/main"
-            },
+            "builder": {"id": pg.builder_id()},
             "metadata": {"invocationId": pg.invocation_id()},
         }
         self.assertEqual(pg.run_details(), expectation)

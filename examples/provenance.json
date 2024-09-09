@@ -48,7 +48,7 @@
     },
     "runDetails": {
       "builder": {
-        "id": "https://github.com/buildkite-plugins/generate-build-provenance-buildkite-plugin@refs/heads/main"
+        "id": "https://github.com/buildkite-plugins/generate-build-provenance-buildkite-plugin@refs/tags/v1.0.1"
       },
       "metadata": {
         "invocationId": "https://buildkite.com/acme-corp/awesome-logger/builds/49387#01919c03-1f99-4e5e-a0f8-75f7571c8fbc"
