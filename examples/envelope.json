@@ -2,9 +2,15 @@
   "_type": "https://in-toto.io/Statement/v1",
   "subject": [
     {
-      "name": "logger-1.6.0.gem",
+      "name": "file_1.ext",
       "digest": {
-        "sha256": "0ab7c120262dd8de2a18cb8d377f1f318cbe98535160a508af9e7710ff43ef3e"
+        "sha256": "fake_sha_1"
+      }
+    },
+    {
+      "name": "file_2.ext",
+      "digest": {
+        "sha256": "fake_sha_2"
       }
     }
   ],
@@ -21,19 +27,19 @@
           "tag": "v1.6.0"
         },
         "step": {
-          "id": "01919c03-1f78-4951-bf28-6b0e293ab2bd",
+          "id": "5bb25de9-7af0-4c16-bf0c-53527a452f15",
           "command": "gem build awesome-logger.gemspec",
           "key": "build-gem"
         },
         "job": {
-          "id": "01919c03-1f99-4e5e-a0f8-75f7571c8fbc"
+          "id": "2e38421a-5040-4f6d-b231-0b4550b6ff37"
         }
       },
       "internalParameters": {
         "buildkite": {
-          "organization_id": "019033f0-0b83-41d7-a327-def5f678906c",
-          "pipeline_id": "01919c01-132f-46f1-803f-2efc0c444af7",
-          "build_id": "01919c03-1f85-4b3f-9594-2986d23b14c4",
+          "organization_id": "2cc12ea8-021e-403b-a674-40f484f1f277",
+          "pipeline_id": "09cb4986-d684-4fbd-8f24-8d878e7f943f",
+          "build_id": "549cafd3-6961-4e84-86a2-7fdb6bd3955e",
           "build_number": "49387"
         }
       },
@@ -48,10 +54,10 @@
     },
     "runDetails": {
       "builder": {
-        "id": "https://github.com/buildkite-plugins/generate-build-provenance-buildkite-plugin@refs/tags/v1.0.1"
+        "id": "https://github.com/buildkite-plugins/generate-build-provenance-buildkite-plugin@refs/tags/v2.0.0"
       },
       "metadata": {
-        "invocationId": "https://buildkite.com/acme-corp/awesome-logger/builds/49387#01919c03-1f99-4e5e-a0f8-75f7571c8fbc"
+        "invocationId": "https://buildkite.com/acme-corp/awesome-logger/builds/49387#2e38421a-5040-4f6d-b231-0b4550b6ff37"
       }
     }
   }

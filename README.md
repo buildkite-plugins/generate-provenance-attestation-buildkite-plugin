@@ -1,12 +1,24 @@
 # Generate Build Provenance Buildkite Plugin
 
-This [Buildkite plugin](https://buildkite.com/docs/agent/v3/plugins) generates an [in-toto Statement](https://github.com/in-toto/attestation/blob/main/spec/v1/statement.md) that satisfies the [build provenance generation requirements](https://slsa.dev/spec/v1.0/requirements#provenance-generation) needed for [SLSA Build Level 1](https://slsa.dev/spec/v1.0/requirements#build-levels).
+This [Buildkite plugin](https://buildkite.com/docs/agent/v3/plugins) generates a build provenance attestation for artifacts that were produced in a Buildkite build step.
 
-It runs as a [post-artifact hook](https://buildkite.com/docs/agent/v3/hooks#job-lifecycle-hooks) that generates a build provenance document for all the relevant artifacts that were built and uploaded by the step that it is attached to.
+It runs as a [post-artifact hook](https://buildkite.com/docs/agent/v3/hooks#job-lifecycle-hooks) that generates a build provenance attestation for all the relevant artifacts that were built and uploaded by the step that it is attached to.
 
-The plugin then uploads the build provenance document to artifact storage for downstream usage.
+The plugin then uploads the attestation to artifact storage for downstream usage.
 
-See an example build provenance document that the plugin generates: [examples/provenance.json](./examples/provenance.json)
+### Attestation format
+
+The core of the attestation is an intermediate [in-toto Statement](https://github.com/in-toto/attestation/blob/main/spec/v1/statement.md) that attests to the build provenance of artifacts that were produced in a Buildkite build step. See [examples/statement.json](./examples/statement.json).
+
+This statement is serialised and signed in an [in-toto Envelope](https://github.com/in-toto/attestation/blob/main/spec/v1/envelope.md) using the [DSSE v1.0](https://github.com/secure-systems-lab/dsse/blob/v1.0.0/envelope.md) format. See [examples/envelope.json](examples/envelope.json).
+
+The [envelope](examples/envelope.json) is the resultant attestation that is uploaded to the build's artifact storage.
+
+### SLSA Build Levels
+
+The in-toto Statement satisfies the [Provenance Exists requirement](https://slsa.dev/spec/v1.0/requirements#provenance-exists) needed for [SLSA Build Level 1](https://slsa.dev/spec/v1.0/requirements#build-levels).
+
+The in-toto Envelope is currently signed using a hard-coded private key for demonstration purposes. This lays the groundwork for the Statement to be signed with a user-specified private key in the future, which will satisfy the [Provenance is Authentic requirement](https://slsa.dev/spec/v1.0/requirements#provenance-authentic) needed for [SLSA Build Level 2](https://slsa.dev/spec/v1.0/requirements#build-levels).
 
 ## Options
 
@@ -33,7 +45,7 @@ steps:
     command: "gem build awesome-logger.gemspec"
     artifact_paths: "awesome-logger-*.gem"
     plugins:
-      - buildkite-plugins/generate-build-provenance#main:
+      - generate-build-provenance#v2.0.0:
         artifacts: "awesome-logger-*.gem"
         provenance_filename: "gem-provenance.json"
 ```

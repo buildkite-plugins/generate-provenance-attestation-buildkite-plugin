@@ -41,9 +41,13 @@ echo "~~~ 🔏 Upload Build Provenance"
 cd "${PROVENANCE_DIR}"
 buildkite-agent artifact upload "*"
 
-echo "--- 🔏 Preview Build Provenance"
+echo "~~~ 🔏 Preview Build Provenance Envelope"
 
-cat "${PROVENANCE_FILE}" | jq
+jq < "${PROVENANCE_FILE}"
+
+echo "~~~ 🔏 Preview Build Provenance Statement"
+
+jq -r '.payload' < "${PROVENANCE_FILE}" | base64 -d | jq
 
 echo "~~~ 🔏 Clean up Build Provenance"
-rm -rf ${TMP_DIR}
+rm -rf "${TMP_DIR}"
