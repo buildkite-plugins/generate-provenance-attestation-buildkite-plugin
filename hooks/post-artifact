@@ -19,35 +19,35 @@ SCRIPT_DIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
 PLUGIN_VERSION=$(cat "${SCRIPT_DIR}/../VERSION")
 
 ARTIFACTS="$(plugin_read_config ARTIFACTS "")"
-PROVENANCE_FILENAME="$(plugin_read_config PROVENANCE_FILENAME "")"
+ATTESTATION_NAME="$(plugin_read_config ATTESTATION_NAME "")"
 
 echo "~~~ 🔏 Preparing to Generate Build Provenance"
 
 TMP_DIR=$(mktemp -d)
-PROVENANCE_DIR="${TMP_DIR}/provenance"
-PROVENANCE_FILE="${PROVENANCE_DIR}/${PROVENANCE_FILENAME}"
+ATTESTATION_DIR="${TMP_DIR}/attestation"
+ATTESTATION_FILE="${ATTESTATION_DIR}/${ATTESTATION_NAME}"
 
-mkdir -p "${PROVENANCE_DIR}"
+mkdir -p "${ATTESTATION_DIR}"
 
 echo "~~~ 🔏 Generate Build Provenance"
 
 python3 "${SCRIPT_DIR}/../main.py" \
   --artifacts-glob "${ARTIFACTS}" \
-  --output "${PROVENANCE_FILE}" \
+  --output "${ATTESTATION_FILE}" \
   --plugin-version "${PLUGIN_VERSION}"
 
 echo "~~~ 🔏 Upload Build Provenance"
 
-cd "${PROVENANCE_DIR}"
+cd "${ATTESTATION_DIR}"
 buildkite-agent artifact upload "*"
 
 echo "~~~ 🔏 Preview Build Provenance Envelope"
 
-jq < "${PROVENANCE_FILE}"
+jq < "${ATTESTATION_FILE}"
 
 echo "~~~ 🔏 Preview Build Provenance Statement"
 
-jq -r '.payload' < "${PROVENANCE_FILE}" | base64 -d | jq
+jq -r '.payload' < "${ATTESTATION_FILE}" | base64 -d | jq
 
 echo "~~~ 🔏 Clean up Build Provenance"
 rm -rf "${TMP_DIR}"

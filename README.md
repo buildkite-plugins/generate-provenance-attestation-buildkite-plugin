@@ -24,19 +24,19 @@ The in-toto Envelope is currently signed using a hard-coded private key for demo
 
 #### `artifacts` (string, required)
 
-A glob pattern to select for artifacts that will be included in the build provenance document.
+A glob pattern to select for artifacts that will be included in the build provenance attestation.
 
-#### `provenance_filename` (string, required)
+#### `attestation_name` (string, required)
 
-Filename to use when uploading the build provenance document to artifact storage.
+Name to use when uploading the build provenance attestation to artifact storage.
 
 ## Usage
 
 In the example below, the pipeline step builds a gem **awesome-logger-<version>.gem** and uploads it to artifact storage.
 
-The Generate Build Provenance plugin generates a build provenance document that incorporates the gem file (included by the `artifacts` glob), and uploads the build provenance document to artifact storage as `gem-provenance.json` (as specified by `provenance_filename`).
+The Generate Build Provenance plugin generates a build provenance attestation that incorporates the gem file (included by the `artifacts` glob), and uploads the build provenance attestation to artifact storage as `gem-build-attestation.json` (as specified by `attestation_name`).
 
-`gem-provenance.json` can then be persisted in later steps or published to a package registry alongside the newly built gem.
+`gem-build-attestation.json` can then be persisted in later steps or published to a package registry alongside the newly built gem.
 
 ```yaml
 steps:
@@ -47,7 +47,7 @@ steps:
     plugins:
       - generate-build-provenance#v2.0.0:
         artifacts: "awesome-logger-*.gem"
-        provenance_filename: "gem-provenance.json"
+        attestation_name: "gem-build-attestation.json"
 ```
 
 ## Development
@@ -56,17 +56,17 @@ The core of the plugin is a [Python](https://www.python.org) program [main.py](.
 
 It accepts the following arguments:
 
-| Argument             | Description                                           |
-| -------------------- | ----------------------------------------------------- |
-| -g, --artifacts-glob | Only include artifacts that match this glob.          |
-| -o, --output         | Write provenance document to a file instead of STDOUT |
+| Argument             | Description                                              |
+| -------------------- | -------------------------------------------------------- |
+| -g, --artifacts-glob | Only include artifacts that match this glob.             |
+| -o, --output         | Write provenance attestation to a file instead of STDOUT |
 
 #### Example
 
 ```shell
 python3 ./main.py \
   --artifacts-glob "*.gem" \
-  --output "./gem-provenance.json"
+  --output "./gem-build-attestation.json"
 ```
 
 ### Other common tasks

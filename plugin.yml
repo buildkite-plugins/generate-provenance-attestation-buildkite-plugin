@@ -8,9 +8,9 @@ configuration:
   properties:
     artifacts:
       type: string
-    provenance_file:
+    attestation_name:
       type: string
   required:
     - artifacts
-    - provenance_file
+    - attestation_name
   additionalProperties: false
