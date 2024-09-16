@@ -1,64 +1,10 @@
 {
-  "_type": "https://in-toto.io/Statement/v1",
-  "subject": [
+  "payloadType": "application/vnd.in-toto+json",
+  "payload": "eyJfdHlwZSI6ICJodHRwczovL2luLXRvdG8uaW8vU3RhdGVtZW50L3YxIiwgInN1YmplY3QiOiBbeyJuYW1lIjogImZpbGVfMS5leHQiLCAiZGlnZXN0IjogeyJzaGEyNTYiOiAiZmFrZV9zaGFfMSJ9fSwgeyJuYW1lIjogImZpbGVfMi5leHQiLCAiZGlnZXN0IjogeyJzaGEyNTYiOiAiZmFrZV9zaGFfMiJ9fV0sICJwcmVkaWNhdGVUeXBlIjogImh0dHBzOi8vc2xzYS5kZXYvcHJvdmVuYW5jZS92MSIsICJwcmVkaWNhdGUiOiB7ImJ1aWxkRGVmaW5pdGlvbiI6IHsiYnVpbGRUeXBlIjogImh0dHBzOi8vYnVpbGRraXRlLmdpdGh1Yi5pby9zbHNhLWJ1aWxkdHlwZXMvam9iL3YxIiwgImV4dGVybmFsUGFyYW1ldGVycyI6IHsicGlwZWxpbmUiOiAiaHR0cHM6Ly9idWlsZGtpdGUuY29tL2FjbWUtY29ycC9hd2Vzb21lLWxvZ2dlciIsICJyZXBvc2l0b3J5IjogImh0dHBzOi8vZ2l0aHViLmNvbS9hY21lLWNvcnAvYXdlc29tZS1sb2dnZXIuZ2l0IiwgImJ1aWxkIjogeyJicmFuY2giOiAibWFpbiIsICJjb21taXQiOiAiMmI0YmE4ZmU3OTM4NmQ0MGNlMjdkYzVmNmNjNDE2MWEwZjU5OGNjMiIsICJ0YWciOiAidjEuNi4wIn0sICJzdGVwIjogeyJpZCI6ICJkYmJhMGM3OC00MTA3LTRiNTYtYjZjNC1kOGE2YjY5ZjY4NzciLCAiY29tbWFuZCI6ICJnZW0gYnVpbGQgYXdlc29tZS1sb2dnZXIuZ2Vtc3BlYyIsICJrZXkiOiAiYnVpbGQtZ2VtIn0sICJqb2IiOiB7ImlkIjogImVhOGVhM2Q5LWM5NjUtNGRkNi04OTJhLTYxZjhmZjg2YTVmZSJ9fSwgImludGVybmFsUGFyYW1ldGVycyI6IHsiYnVpbGRraXRlIjogeyJvcmdhbml6YXRpb25faWQiOiAiYTY0OWUzNGUtMWU4Yi00MDY3LTlkZmItODA0NWQ4ZWNhYmJkIiwgInBpcGVsaW5lX2lkIjogIjAxNDcxMWVkLTg2MzItNGZiYS1iODk1LWI2YjE5OWY1YzZmOSIsICJidWlsZF9pZCI6ICI2NTIzYTFmOC0yMGQ2LTRhNjItOGViNC01ZGY3YmYxNmFiZWUiLCAiYnVpbGRfbnVtYmVyIjogIjQ5Mzg3In19LCAicmVzb2x2ZWREZXBlbmRlbmNpZXMiOiBbeyJ1cmkiOiAiZ2l0K2h0dHBzOi8vZ2l0aHViLmNvbS9hY21lLWNvcnAvYXdlc29tZS1sb2dnZXJAcmVmcy9oZWFkcy9tYWluIiwgImRpZ2VzdCI6IHsiZ2l0Q29tbWl0IjogIjJiNGJhOGZlNzkzODZkNDBjZTI3ZGM1ZjZjYzQxNjFhMGY1OThjYzIifX1dfSwgInJ1bkRldGFpbHMiOiB7ImJ1aWxkZXIiOiB7ImlkIjogImh0dHBzOi8vZ2l0aHViLmNvbS9idWlsZGtpdGUtcGx1Z2lucy9nZW5lcmF0ZS1idWlsZC1wcm92ZW5hbmNlLWJ1aWxka2l0ZS1wbHVnaW5AcmVmcy90YWdzL3YyLjAuMCJ9LCAibWV0YWRhdGEiOiB7Imludm9jYXRpb25JZCI6ICJodHRwczovL2J1aWxka2l0ZS5jb20vYWNtZS1jb3JwL2F3ZXNvbWUtbG9nZ2VyL2J1aWxkcy80OTM4NyNlYThlYTNkOS1jOTY1LTRkZDYtODkyYS02MWY4ZmY4NmE1ZmUifX19fQ==",
+  "signatures": [
     {
-      "name": "file_1.ext",
-      "digest": {
-        "sha256": "fake_sha_1"
-      }
-    },
-    {
-      "name": "file_2.ext",
-      "digest": {
-        "sha256": "fake_sha_2"
-      }
+      "keyid": "generate_build_provenance_plugin_example_key",
+      "sig": "CRe4ZTpqKckdwXupSw+1JujejknZbJH41fRhRkTuDR+k9WZPQsOL+9N9wepJFLlDDmuFyBFnQ+s8Q9rAN628sVFRA5sdjr/tbWABBUP7BJigqDlHBrv+es3pXZfD2H8hpswsphE1geEHFl6IYabNEtummlGQbufsg2R2jeU4CPGgJb6/fkj28RMbAUEMPNcJhRL5gq89ZE6435mRQI9Z7dxdOvPptjBYmEybGiZ+qdImHQTfLd3Bdyqa686Smj0j8CWXd6zMODJMeXOo/HDGAmR9hGdWDgiIWusIs/BxDvAwLS1qSkubg4EmLh1tY2HORPDf7aCR3NplhIX4Zl9FhA=="
     }
-  ],
-  "predicateType": "https://slsa.dev/provenance/v1",
-  "predicate": {
-    "buildDefinition": {
-      "buildType": "https://buildkite.github.io/slsa-buildtypes/job/v1",
-      "externalParameters": {
-        "pipeline": "https://buildkite.com/acme-corp/awesome-logger",
-        "repository": "https://github.com/acme-corp/awesome-logger.git",
-        "build": {
-          "branch": "main",
-          "commit": "2b4ba8fe79386d40ce27dc5f6cc4161a0f598cc2",
-          "tag": "v1.6.0"
-        },
-        "step": {
-          "id": "5bb25de9-7af0-4c16-bf0c-53527a452f15",
-          "command": "gem build awesome-logger.gemspec",
-          "key": "build-gem"
-        },
-        "job": {
-          "id": "2e38421a-5040-4f6d-b231-0b4550b6ff37"
-        }
-      },
-      "internalParameters": {
-        "buildkite": {
-          "organization_id": "2cc12ea8-021e-403b-a674-40f484f1f277",
-          "pipeline_id": "09cb4986-d684-4fbd-8f24-8d878e7f943f",
-          "build_id": "549cafd3-6961-4e84-86a2-7fdb6bd3955e",
-          "build_number": "49387"
-        }
-      },
-      "resolvedDependencies": [
-        {
-          "uri": "git+https://github.com/acme-corp/awesome-logger@refs/heads/main",
-          "digest": {
-            "gitCommit": "2b4ba8fe79386d40ce27dc5f6cc4161a0f598cc2"
-          }
-        }
-      ]
-    },
-    "runDetails": {
-      "builder": {
-        "id": "https://github.com/buildkite-plugins/generate-build-provenance-buildkite-plugin@refs/tags/v2.0.0"
-      },
-      "metadata": {
-        "invocationId": "https://buildkite.com/acme-corp/awesome-logger/builds/49387#2e38421a-5040-4f6d-b231-0b4550b6ff37"
-      }
-    }
-  }
+  ]
 }
