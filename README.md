@@ -20,6 +20,19 @@ The in-toto Statement satisfies the [Provenance Exists requirement](https://slsa
 
 The in-toto Envelope is currently signed using a hard-coded private key for demonstration purposes. This lays the groundwork for the Statement to be signed with a user-specified private key in the future, which will satisfy the [Provenance is Authentic requirement](https://slsa.dev/spec/v1.0/requirements#provenance-authentic) needed for [SLSA Build Level 2](https://slsa.dev/spec/v1.0/requirements#build-levels).
 
+## Quick Start
+
+```yaml
+steps:
+  - label: "Build Gem"
+    command: "gem build awesome-logger.gemspec"
+    artifact_paths: "awesome-logger-*.gem"
+    plugins:
+      - generate-build-provenance#v3.0.1:
+        artifacts: "awesome-logger-*.gem"
+        attestation_name: "gem-build-attestation.json"
+```
+
 ## Options
 
 #### `artifacts` (string, required)
@@ -45,7 +58,7 @@ steps:
     command: "gem build awesome-logger.gemspec"
     artifact_paths: "awesome-logger-*.gem"
     plugins:
-      - generate-build-provenance#v2.0.0:
+      - generate-build-provenance#v3.0.1:
         artifacts: "awesome-logger-*.gem"
         attestation_name: "gem-build-attestation.json"
 ```
