@@ -16,7 +16,7 @@ steps:
   - label: ":sparkles: Lint"
     plugins:
       - plugin-linter#v3.3.0:
-          id: generate-build-provenance
+          id: generate-provenance-attestation
 
   - label: ":shell: Shellcheck"
     plugins:

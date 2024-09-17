@@ -3,7 +3,7 @@
 # `set -x` if DEBUG_PUBLISH_TO_PACKAGES environment variable is set 
 # to anything at all. e.g. DEBUG_PUBLISH_TO_PACKAGES=1
 # Do this before `set -u` to avoid unbound variable error.
-if [[ -n "${DEBUG_GENERATE_BUILD_PROVENANCE}" ]]; then
+if [[ -n "${DEBUG_GENERATE_PROVENANCE_ATTESTATION}" ]]; then
   set -x # Print all executed commands to the terminal for debugging
 fi
 
@@ -21,7 +21,7 @@ PLUGIN_VERSION=$(cat "${SCRIPT_DIR}/../VERSION")
 ARTIFACTS="$(plugin_read_config ARTIFACTS "")"
 ATTESTATION_NAME="$(plugin_read_config ATTESTATION_NAME "")"
 
-echo "~~~ 🔏 Preparing to Generate Build Provenance"
+echo "~~~ 🔏 [GPA] Generate Provenance Attestation"
 
 TMP_DIR=$(mktemp -d)
 ATTESTATION_DIR="${TMP_DIR}/attestation"
@@ -29,25 +29,25 @@ ATTESTATION_FILE="${ATTESTATION_DIR}/${ATTESTATION_NAME}"
 
 mkdir -p "${ATTESTATION_DIR}"
 
-echo "~~~ 🔏 Generate Build Provenance"
+echo "~~~ 🔏 [GPA] Generate"
 
 python3 "${SCRIPT_DIR}/../main.py" \
   --artifacts-glob "${ARTIFACTS}" \
   --output "${ATTESTATION_FILE}" \
   --plugin-version "${PLUGIN_VERSION}"
 
-echo "~~~ 🔏 Upload Build Provenance"
+echo "~~~ 🔏 [GPA] Upload"
 
 cd "${ATTESTATION_DIR}"
 buildkite-agent artifact upload "*"
 
-echo "~~~ 🔏 Preview Build Provenance Envelope"
+echo "~~~ 🔏 [GPA] Preview Envelope"
 
 jq < "${ATTESTATION_FILE}"
 
-echo "~~~ 🔏 Preview Build Provenance Statement"
+echo "~~~ 🔏 [GPA] Preview Statement"
 
 jq -r '.payload' < "${ATTESTATION_FILE}" | base64 -d | jq
 
-echo "~~~ 🔏 Clean up Build Provenance"
+echo "~~~ 🔏 [GPA] Clean up"
 rm -rf "${TMP_DIR}"

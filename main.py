@@ -1,10 +1,10 @@
 import json
 import os
 
-from provenance_generator.cli_arguments import CliArguments
-from provenance_generator.core import ProvenanceGenerator
-from provenance_generator.enveloper import Enveloper
-from provenance_generator.helpers import (
+from attestation_generator.cli_arguments import CliArguments
+from attestation_generator.provenance_generator import ProvenanceGenerator
+from attestation_generator.enveloper import Enveloper
+from attestation_generator.helpers import (
     example_rsa_private_key,
     fake_env,
     fake_files,
@@ -36,11 +36,11 @@ generator = ProvenanceGenerator(
 # which SHOULD NOT BE TRUSTED because anyone can make up a fake
 # statement payload and sign it with this key.
 enveloper = Enveloper(
-    key_id="generate_build_provenance_plugin_example_key",
+    key_id="generate_provenance_attestation_plugin_example_key",
     private_key_b64=example_rsa_private_key(),
 )
 
-statement: str = json.dumps(generator.provenance())
+statement: str = json.dumps(generator.statement())
 envelope: str = enveloper.wrap(statement)
 
 output_file = arguments.get_output_file()
@@ -48,6 +48,6 @@ output_file = arguments.get_output_file()
 if isinstance(output_file, str):
     with open(output_file, "w", encoding="utf-8") as file:
         file.write(envelope)
-    print("Build Provenance written to: {}".format(arguments.get_output_file()))
+    print("Provenance attestation written to: {}".format(arguments.get_output_file()))
 else:
     print(envelope)

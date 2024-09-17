@@ -2,7 +2,7 @@ import re
 import urllib.parse
 from typing import Any, Callable, Dict, List, Mapping
 
-from provenance_generator.path_sha import PathSha
+from attestation_generator.path_sha import PathSha
 
 
 class ProvenanceGenerator:
@@ -19,7 +19,7 @@ class ProvenanceGenerator:
     def _env(self, key: str) -> str:
         return self.environment[key]
 
-    def provenance(self) -> Dict[str, Any]:
+    def statement(self) -> Dict[str, Any]:
         return {
             "_type": "https://in-toto.io/Statement/v1",
             "subject": self.subject(),
@@ -86,7 +86,7 @@ class ProvenanceGenerator:
         )
 
     def builder_id(self) -> str:
-        return "https://github.com/buildkite-plugins/generate-build-provenance-buildkite-plugin@refs/tags/{}".format(
+        return "https://github.com/buildkite-plugins/generate-provenance-attestation-buildkite-plugin@refs/tags/{}".format(
             self.plugin_version
         )
 

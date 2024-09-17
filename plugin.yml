@@ -1,5 +1,5 @@
-name: Generate Build Provenance
-description: Generates a build provenance document that satisfied SLSA Build Level 1
+name: Generate Provenance Attestation
+description: Generates a SLSA Provenance attestation that satisfied SLSA Build Level 1
 author: https://github.com/buildkite-plugins
 requirements:
   - python3

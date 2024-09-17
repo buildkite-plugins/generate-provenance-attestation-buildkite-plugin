@@ -5,8 +5,8 @@ import unittest
 from pathlib import Path
 from tempfile import NamedTemporaryFile
 
-from provenance_generator.enveloper import Enveloper
-from provenance_generator.helpers import example_rsa_private_key, example_rsa_public_key
+from attestation_generator.enveloper import Enveloper
+from attestation_generator.helpers import example_rsa_private_key, example_rsa_public_key
 
 
 class EnveloperTests(unittest.TestCase):

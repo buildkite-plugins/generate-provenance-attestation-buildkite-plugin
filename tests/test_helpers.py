@@ -2,12 +2,12 @@ import unittest
 from typing import Any, Dict, List
 from unittest.mock import call, Mock, patch
 
-from provenance_generator.helpers import get_files_and_shas
+from attestation_generator.helpers import get_files_and_shas
 
 
 class HelpersTests(unittest.TestCase):
 
-    @patch("provenance_generator.helpers.ApiClient")
+    @patch("attestation_generator.helpers.ApiClient")
     def test_get_files_and_shas_0(self, mock_api_client: Mock) -> None:
         expectation = [
             dict(path="file_1.ext", sha256sum="fake_sha_1"),
@@ -31,7 +31,7 @@ class HelpersTests(unittest.TestCase):
 
         self.assertEqual(result, expectation)
 
-    @patch("provenance_generator.helpers.ApiClient")
+    @patch("attestation_generator.helpers.ApiClient")
     def test_get_files_and_shas_collapses_paths_0(self, mock_api_client: Mock) -> None:
         artifacts_list = [
             dict(path="some/dir/file_1.ext", sha256sum="fake_sha_1"),
@@ -56,7 +56,7 @@ class HelpersTests(unittest.TestCase):
             ],
         )
 
-    @patch("provenance_generator.helpers.ApiClient")
+    @patch("attestation_generator.helpers.ApiClient")
     def test_get_files_and_shas_handles_subqueries_0(
         self, mock_api_client: Mock
     ) -> None:

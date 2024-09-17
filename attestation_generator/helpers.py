@@ -4,8 +4,8 @@ import zlib
 from pathlib import Path
 from typing import Dict, List, Mapping
 
-from provenance_generator.api_client import ApiClient
-from provenance_generator.path_sha import PathSha
+from attestation_generator.api_client import ApiClient
+from attestation_generator.path_sha import PathSha
 
 
 def fake_env() -> Dict[str, str]:

@@ -2,12 +2,12 @@ import json
 import unittest
 from unittest.mock import Mock, patch
 
-from provenance_generator.api_client import ApiClient
+from attestation_generator.api_client import ApiClient
 
 
 class ApiClientTests(unittest.TestCase):
 
-    @patch("provenance_generator.api_client.HTTPSConnection")
+    @patch("attestation_generator.api_client.HTTPSConnection")
     def test_get_artifacts_list_0(self, mock_HTTPSConnection: Mock) -> None:
         expectation = [
             dict(path="file_1.ext", sha256sum="fake_sha_1"),
