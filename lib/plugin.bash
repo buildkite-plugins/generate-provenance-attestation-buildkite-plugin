@@ -3,7 +3,7 @@ set -euo pipefail
 
 # Copied from https://github.com/buildkite-plugins/template-buildkite-plugin/blob/16a1d1ebc840cf929fdb4f8955607d49709ee9da/lib/plugin.bash
 
-PLUGIN_PREFIX="GENERATE_BUILD_PROVENANCE"
+PLUGIN_PREFIX="GENERATE_PROVENANCE_ATTESTATION"
 
 # Reads a single value
 function plugin_read_config() {

@@ -1,10 +1,10 @@
 import json
 import os
 
-from provenance_generator.cli_arguments import CliArguments
-from provenance_generator.core import ProvenanceGenerator
-from provenance_generator.enveloper import Enveloper
-from provenance_generator.helpers import (
+from attestation_generator.cli_arguments import CliArguments
+from attestation_generator.provenance_generator import ProvenanceGenerator
+from attestation_generator.enveloper import Enveloper
+from attestation_generator.helpers import (
     example_rsa_private_key,
     fake_env,
     fake_files,
@@ -40,7 +40,7 @@ enveloper = Enveloper(
     private_key_b64=example_rsa_private_key(),
 )
 
-statement: str = json.dumps(generator.provenance())
+statement: str = json.dumps(generator.statement())
 envelope: str = enveloper.wrap(statement)
 
 output_file = arguments.get_output_file()

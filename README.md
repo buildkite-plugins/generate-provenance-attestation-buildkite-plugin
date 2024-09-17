@@ -28,7 +28,7 @@ steps:
     command: "gem build awesome-logger.gemspec"
     artifact_paths: "awesome-logger-*.gem"
     plugins:
-      - generate-provenance-attestation#v3.0.1:
+      - generate-provenance-attestation#v1.0.0:
         artifacts: "awesome-logger-*.gem"
         attestation_name: "gem-provenance-attestation.json"
 ```
@@ -58,7 +58,7 @@ steps:
     command: "gem build awesome-logger.gemspec"
     artifact_paths: "awesome-logger-*.gem"
     plugins:
-      - generate-provenance-attestation#v3.0.1:
+      - generate-provenance-attestation#v1.0.0:
         artifacts: "awesome-logger-*.gem"
         attestation_name: "gem-provenance-attestation.json"
 ```
@@ -86,7 +86,7 @@ python3 ./main.py \
 
 #### Running with fake environment variables
 
-If `FAKE_ENV` environment variable is set to `1`, the program will use a set of fake `BUILDKITE_*` environment variables and fake artifact files defined in [provenance_generator/helpers.py](./provenance_generator/helpers.py).
+If `FAKE_ENV` environment variable is set to `1`, the program will use a set of fake `BUILDKITE_*` environment variables and fake artifact files defined in [attestation_generator/helpers.py](./attestation_generator/helpers.py).
 
 ```shell
 FAKE_ENV=1 python3 ./main.py

@@ -5,15 +5,15 @@ from pathlib import Path
 from typing import Dict
 from unittest.mock import Mock
 
-from provenance_generator.core import ProvenanceGenerator
-from provenance_generator.helpers import fake_env
+from attestation_generator.provenance_generator import ProvenanceGenerator
+from attestation_generator.helpers import fake_env
 
 
 class ProvenanceGeneratorTests(unittest.TestCase):
     def test_provenance_0(self) -> None:
         pg = ProvenanceGenerator(environment=self.generate_base_env(), files=[])
 
-        result = pg.provenance()
+        result = pg.statement()
         expectation = {
             "_type": "https://in-toto.io/Statement/v1",
             "subject": pg.subject(),
