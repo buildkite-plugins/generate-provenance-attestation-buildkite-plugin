@@ -1,14 +1,14 @@
-# Generate Build Provenance Buildkite Plugin
+# Generate Provenance Attestation Buildkite Plugin
 
-This [Buildkite plugin](https://buildkite.com/docs/agent/v3/plugins) generates a build provenance attestation for artifacts that were produced in a Buildkite build step.
+This [Buildkite plugin](https://buildkite.com/docs/agent/v3/plugins) generates a SLSA Provenance attestation for artifacts that were produced in a Buildkite build step.
 
-It runs as a [post-artifact hook](https://buildkite.com/docs/agent/v3/hooks#job-lifecycle-hooks) that generates a build provenance attestation for all the relevant artifacts that were built and uploaded by the step that it is attached to.
+It runs as a [post-artifact hook](https://buildkite.com/docs/agent/v3/hooks#job-lifecycle-hooks) that generates a provenance attestation for all the relevant artifacts that were built and uploaded by the step that it is attached to.
 
 The plugin then uploads the attestation to artifact storage for downstream usage.
 
 ### Attestation format
 
-The core of the attestation is an intermediate [in-toto Statement](https://github.com/in-toto/attestation/blob/main/spec/v1/statement.md) that attests to the build provenance of artifacts that were produced in a Buildkite build step. See [examples/statement.json](./examples/statement.json).
+The core of the attestation is an [in-toto Statement](https://github.com/in-toto/attestation/blob/main/spec/v1/statement.md) that attests to the build provenance of artifacts that were produced in a Buildkite build step. See [examples/statement.json](./examples/statement.json).
 
 This statement is serialised and signed in an [in-toto Envelope](https://github.com/in-toto/attestation/blob/main/spec/v1/envelope.md) using the [DSSE v1.0](https://github.com/secure-systems-lab/dsse/blob/v1.0.0/envelope.md) format. See [examples/envelope.json](examples/envelope.json).
 
@@ -28,28 +28,28 @@ steps:
     command: "gem build awesome-logger.gemspec"
     artifact_paths: "awesome-logger-*.gem"
     plugins:
-      - generate-build-provenance#v3.0.1:
+      - generate-provenance-attestation#v3.0.1:
         artifacts: "awesome-logger-*.gem"
-        attestation_name: "gem-build-attestation.json"
+        attestation_name: "gem-provenance-attestation.json"
 ```
 
 ## Options
 
 #### `artifacts` (string, required)
 
-A glob pattern to select for artifacts that will be included in the build provenance attestation.
+A glob pattern to select for artifacts that will be included in the provenance attestation.
 
 #### `attestation_name` (string, required)
 
-Name to use when uploading the build provenance attestation to artifact storage.
+Name to use when uploading the provenance attestation to artifact storage.
 
 ## Usage
 
 In the example below, the pipeline step builds a gem **awesome-logger-<version>.gem** and uploads it to artifact storage.
 
-The Generate Build Provenance plugin generates a build provenance attestation that incorporates the gem file (included by the `artifacts` glob), and uploads the build provenance attestation to artifact storage as `gem-build-attestation.json` (as specified by `attestation_name`).
+Generate Provenance Attestation plugin generates a provenance attestation that incorporates the gem file (included by the `artifacts` glob), and uploads the attestation to artifact storage as `gem-provenance-attestation.json` (as specified by `attestation_name`).
 
-`gem-build-attestation.json` can then be persisted in later steps or published to a package registry alongside the newly built gem.
+`gem-provenance-attestation.json` can then be persisted in later steps or published to a package registry alongside the newly built gem.
 
 ```yaml
 steps:
@@ -58,9 +58,9 @@ steps:
     command: "gem build awesome-logger.gemspec"
     artifact_paths: "awesome-logger-*.gem"
     plugins:
-      - generate-build-provenance#v3.0.1:
+      - generate-provenance-attestation#v3.0.1:
         artifacts: "awesome-logger-*.gem"
-        attestation_name: "gem-build-attestation.json"
+        attestation_name: "gem-provenance-attestation.json"
 ```
 
 ## Development
@@ -79,7 +79,7 @@ It accepts the following arguments:
 ```shell
 python3 ./main.py \
   --artifacts-glob "*.gem" \
-  --output "./gem-build-attestation.json"
+  --output "./gem-provenance-attestation.json"
 ```
 
 ### Other common tasks

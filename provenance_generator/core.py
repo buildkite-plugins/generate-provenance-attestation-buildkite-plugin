@@ -86,7 +86,7 @@ class ProvenanceGenerator:
         )
 
     def builder_id(self) -> str:
-        return "https://github.com/buildkite-plugins/generate-build-provenance-buildkite-plugin@refs/tags/{}".format(
+        return "https://github.com/buildkite-plugins/generate-provenance-attestation-buildkite-plugin@refs/tags/{}".format(
             self.plugin_version
         )
 

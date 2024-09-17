@@ -120,7 +120,7 @@ class ProvenanceGeneratorTests(unittest.TestCase):
 
         self.assertEqual(
             pg.builder_id(),
-            "https://github.com/buildkite-plugins/generate-build-provenance-buildkite-plugin@refs/tags/v193.402.221",
+            "https://github.com/buildkite-plugins/generate-provenance-attestation-buildkite-plugin@refs/tags/v193.402.221",
         )
 
     def test_run_details_0(self) -> None:

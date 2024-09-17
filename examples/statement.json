@@ -27,19 +27,19 @@
           "tag": "v1.6.0"
         },
         "step": {
-          "id": "5bb25de9-7af0-4c16-bf0c-53527a452f15",
+          "id": "3f9c0598-5b82-4b62-8f5d-6d2d08f78733",
           "command": "gem build awesome-logger.gemspec",
           "key": "build-gem"
         },
         "job": {
-          "id": "2e38421a-5040-4f6d-b231-0b4550b6ff37"
+          "id": "2792d082-f400-4346-993c-72c4947c82b6"
         }
       },
       "internalParameters": {
         "buildkite": {
-          "organization_id": "2cc12ea8-021e-403b-a674-40f484f1f277",
-          "pipeline_id": "09cb4986-d684-4fbd-8f24-8d878e7f943f",
-          "build_id": "549cafd3-6961-4e84-86a2-7fdb6bd3955e",
+          "organization_id": "19299724-43b4-4812-b823-9ea5a62b388e",
+          "pipeline_id": "ac95cb65-7589-41fa-9142-9cfb27f65249",
+          "build_id": "d3ce1ab5-df3c-4197-901d-a2339201046d",
           "build_number": "49387"
         }
       },
@@ -54,10 +54,10 @@
     },
     "runDetails": {
       "builder": {
-        "id": "https://github.com/buildkite-plugins/generate-build-provenance-buildkite-plugin@refs/tags/v2.0.0"
+        "id": "https://github.com/buildkite-plugins/generate-provenance-attestation-buildkite-plugin@refs/tags/v1.0.0"
       },
       "metadata": {
-        "invocationId": "https://buildkite.com/acme-corp/awesome-logger/builds/49387#2e38421a-5040-4f6d-b231-0b4550b6ff37"
+        "invocationId": "https://buildkite.com/acme-corp/awesome-logger/builds/49387#2792d082-f400-4346-993c-72c4947c82b6"
       }
     }
   }
