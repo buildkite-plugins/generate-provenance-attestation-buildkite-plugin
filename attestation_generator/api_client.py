@@ -10,7 +10,10 @@ class ApiClient:
         self.access_token = access_token
         host = "agent.buildkite.com"
         self.conn = HTTPSConnection(host)
-        self.headers = {"Host": host, "Authorization": "Token {}".format(access_token)}
+        self.headers = {
+            "Host": host,
+            "Authorization": "Token {}".format(access_token),
+        }
 
     # Warning, this uses an internal undocumented endpoint and can break without any notice.
     # The long term goal is to use `buildkite artifact search` with `--format %T`
@@ -27,5 +30,15 @@ class ApiClient:
         path = "/v3/builds/{}/artifacts/search?{}".format(build_id, urlencode(params))
 
         self.conn.request("GET", path, headers=self.headers)
-        response_body = self.conn.getresponse().read()
+
+        response = self.conn.getresponse()
+        response_body = response.read()
+
+        if response.status != 200:
+            print("Error retrieving artifact list")
+            print("URL: {}".format("https://{}{}".format(self.conn.host, path)))
+            print("Code: {}".format(response.status))
+            print("Body: \n{}".format(response_body.decode()))
+            exit(1)
+
         return cast(List[Mapping[str, Any]], json.loads(response_body))
