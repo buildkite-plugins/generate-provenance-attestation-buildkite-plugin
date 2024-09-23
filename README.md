@@ -28,7 +28,7 @@ steps:
     command: "gem build awesome-logger.gemspec"
     artifact_paths: "awesome-logger-*.gem"
     plugins:
-      - generate-provenance-attestation#v1.0.0:
+      - generate-provenance-attestation#v1.1.0:
         artifacts: "awesome-logger-*.gem"
         attestation_name: "gem-provenance-attestation.json"
 ```
@@ -58,7 +58,7 @@ steps:
     command: "gem build awesome-logger.gemspec"
     artifact_paths: "awesome-logger-*.gem"
     plugins:
-      - generate-provenance-attestation#v1.0.0:
+      - generate-provenance-attestation#v1.1.0:
         artifacts: "awesome-logger-*.gem"
         attestation_name: "gem-provenance-attestation.json"
 ```
